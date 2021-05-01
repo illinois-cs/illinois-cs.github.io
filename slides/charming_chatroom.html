@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>
+        
+        Networking | CS 241: System Programming
+        
+    </title>
+
+    <meta name="author" content="" />
+
+    <!-- Description -->
+    
+    <meta name="description" content=""Webpage for CS 241: System Programming at the University of Illinois at Urbana-Champaign. All documentation and information about the course can be found here."
+">
+    
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.7.0/css/reveal.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.7.0/css/theme/black.css" id="theme"/>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="/css/code-style.css"/>
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '/reveal.js/css/print/pdf.css' : '/reveal.js/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <!-- <link rel="apple-touch-icon" href="/apple-touch-icon.png" /> -->
+
+    <link rel="canonical" href="http://cs241.cs.illinois.edu/slides/charming_chatroom">
+
+    <style>
+     .reveal pre {
+         box-shadow: none;
+     }
+     .reveal pre.highlight {
+         margin: 0px 0px 0px 0px;
+         width: 100%;
+         height: 100%;
+         font-size: 20px;
+     }
+     #toggle-chalkboard {
+	       left: 60px !important;
+	       bottom: 32px !important;
+     }
+     #toggle-notes {
+	       left: 93px !important;
+	       bottom: 32px !important;
+     }
+    </style>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="reveal">
+        <div class="slides">
+<section>
+      <h1 class="title">Networking</h1>
+      <h2 class="author"></h2>
+</section><section><h1></h1>
+<section><h2 id="tcpudp">TCP/UDP</h2>
+
+<p><img src="http://ithare.com/wp-content/uploads/BB_part41_v1a.png" alt="TCP vs UDP"></p>
+
+</section><section><h2 id="tcp">TCP</h2>
+
+<p><img src="http://ithare.com/wp-content/uploads/BB_part43_v3.png" alt="TCP Rabbit"></p>
+
+</section><section><h2 id="ack-dance">ACK-Dance</h2>
+
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Tcp_normal.png" alt="SYN SYN-ACK ACK"></p>
+
+</section><section><h2 id="packet-size">Packet Size</h2>
+
+<p><img src="http://tr1.cbsistatic.com/hub/i/2015/06/03/596ecee7-0987-11e5-940f-14feb5cc3d2a/r00220010702mul01_02.gif" alt="Size of Packet"></p>
+
+</section><section><h2 id="diff">Diff</h2>
+
+<p><img src="https://www.bestvpnserver.com/wp-content/uploads/2013/09/UDP_vs_TCP.jpg" alt="Drfferences"></p>
+
+</section></section><section><h1></h1>
+
+<section><h2 id="the-4-calls">The 4 Calls</h2>
+
+</section><section><h2 id="socket">Socket</h2>
+
+<p><img src="https://openclipart.org/image/2400px/svg_to_png/212249/rodentia-icons_preferences-system-network.png" alt="socket"></p>
+
+</section><section><h2 id="bind">Bind</h2>
+
+<p><img src="http://995642590.r.lightningbase-cdn.com/wp-content/uploads/2015/12/2015-12-15-Double-Bind-425x282px.jpg" alt="bind"></p>
+
+</section><section><h2 id="listen">Listen</h2>
+
+<p><img src="http://calvaryfullerton.org/RichBlog/wp-content/uploads/2015/04/Listen.jpg" alt="listen"></p>
+
+</section><section><h2 id="accept">Accept</h2>
+
+<p><img src="http://pad2.whstatic.com/images/thumb/4/42/Accept-a-Diploma-Step-4-Version-2.jpg/aid346607-728px-Accept-a-Diploma-Step-4-Version-2.jpg" alt="accept"></p>
+
+</section><section><h2 id="connect">Connect</h2>
+
+<p><img src="http://www.linkedintraining.net/wp-content/uploads/connecting-people.jpg" alt="connect"></p>
+
+</section><section><h2 id="important">Important</h2>
+
+<p>Make sure to check errors for <em>every</em> call, networking can fail at any point.</p>
+
+</section></section><section><h1></h1>
+
+<section><h2 id="the-gotchas">The Gotchas</h2>
+
+</section><section><h2 id="network-order">Network Order</h2>
+
+<p><img src="http://orca.st.usm.edu/~seyfarth/network_pgm/byte_ordering.png" alt="Byte Ordering"></p>
+
+</section><section><h2 id="sock-options">Sock Options</h2>
+
+<p>Make sure to set socket options to reuse to enable effective debugging of the server. Why does linux do this for sockets?</p>
+
+</section><section><h2 id="signal-handler-safety">Signal Handler Safety</h2>
+
+<p>Most server applications are interupted through a signal, but you shouldn’t do all of the cleanup in the signal handler because not every function is signal handler safe (think back to CS233). That means the often pattern we see is like below.</p>
+
+</section><section><h2></h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int is_running = 1;
+int handler(){
+	is_running = 0;
+}
+int main(){
+	while(is_running){ /*...*/};
+
+	close(...);
+}
+</code></pre></div></div>
+
+</section><section><h2 id="style">Style</h2>
+
+<p>Try to modularize your functions so that everything is not in the main method. This is ideally because we <strong>need</strong> to tell the system that we are done using shared resources like sockets, and we need to determine when a socket goes “out of scope” – we don’t have RAII like in C++ so we have to determine that ourselves.</p>
+
+</section></section><section><h1></h1>
+
+<section><h2 id="nice-to-knows">Nice to Knows</h2>
+
+</section><section><h2 id="latency">Latency</h2>
+
+<p><img src="http://i.imgur.com/k0t1e.png" alt="Latency numbers you should know"></p>
+
+</section><section><h2 id="dropped-packets">Dropped Packets</h2>
+
+<p><img src="https://www.isa.org/uploadedImages/Content/Standards_and_Publications/ISA_Publications/InTech_Magazine/2014/Sep-Oct/SO-2014-System-Int-figure1.jpg" alt="Why packets get dropped"></p>
+
+</section><section><h2 id="udp-example">UDP Example</h2>
+
+<pre><code class="language-C"><span class="cp">#include &lt;errno.h&gt;
+#include &lt;string.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;netdb.h&gt;
+#include &lt;sys/socket.h&gt;
+#include &lt;netinet/in.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Listening on port %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">portname</span><span class="p">);</span>
+
+        <span class="kt">ssize_t</span> <span class="n">bytes_recd</span><span class="o">=</span><span class="n">recvfrom</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span><span class="n">buffer</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">buffer</span><span class="p">),</span><span class="mi">0</span><span class="p">,(</span><span class="k">struct</span> <span class="n">sockaddr</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">source</span><span class="p">,</span><span class="o">&amp;</span><span class="n">source_len</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">bytes_recd</span><span class="o">==-</span><span class="mi">1</span><span class="p">)</span> <span class="n">quit</span><span class="p">(</span><span class="s">"recvfrom"</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">bytes_recd</span> <span class="o">==</span> <span class="n">source_len</span><span class="p">)</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">"Datagram &gt; buffer - message truncated</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+
+        <span class="c1">// Print buffer contents</span>
+        <span class="n">write</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="n">bytes_recd</span><span class="p">);</span>
+        <span class="n">write</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+
+        <span class="c1">// Encrypt the message</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">bytes_recd</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span><span class="p">(</span> <span class="n">buffer</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">64</span><span class="p">)</span> <span class="n">buffer</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">^=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="kt">int</span> <span class="n">flags</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+        <span class="kt">size_t</span> <span class="n">bytes_sent</span> <span class="o">=</span> <span class="n">sendto</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="n">bytes_recd</span><span class="p">,</span> <span class="n">flags</span><span class="p">,</span> <span class="p">(</span><span class="k">struct</span> <span class="n">sockaddr</span><span class="o">*</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">source</span><span class="p">,</span> <span class="n">source_len</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">bytes_sent</span><span class="o">==-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">quit</span><span class="p">(</span><span class="s">"sendto"</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="n">bytes_sent</span> <span class="o">==</span> <span class="n">bytes_recd</span> <span class="p">)</span> <span class="n">printf</span><span class="p">(</span><span class="s">"Replied</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="k">else</span>  <span class="n">quit</span><span class="p">(</span><span class="s">"write"</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+
+</section></section>
+</div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.7.0/lib/js/head.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.7.0/js/reveal.js"></script>
+    <script>
+     // Full list of configuration options available at:
+     // https://github.com/hakimel/reveal.js#configuration
+     Reveal.initialize({
+         controls: true,
+         progress: true,
+         history: true,
+         center: true,
+         // Optional reveal.js plugins
+         dependencies: [
+             { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.7.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+             { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.7.0/plugin/zoom-js/zoom.js', async: true },
+             { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.7.0/plugin/notes/notes.js', async: true },
+             { src: '/js/reveal.js/menu/menu.js', async: true},
+             { src: '/js/reveal.js/chalkboard/chalkboard.js', async: true},
+         ]
+     });
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>
+        
+        Welcome to CS 241 | CS 241: System Programming
+        
+    </title>
+
+    <meta name="author" content="" />
+
+    <!-- Description -->
+    
+    <meta name="description" content=""Webpage for CS 241: System Programming at the University of Illinois at Urbana-Champaign. All documentation and information about the course can be found here."
+">
+    
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.7.0/css/reveal.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.7.0/css/theme/black.css" id="theme"/>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="/css/code-style.css"/>
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '/reveal.js/css/print/pdf.css' : '/reveal.js/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <!-- <link rel="apple-touch-icon" href="/apple-touch-icon.png" /> -->
+
+    <link rel="canonical" href="http://cs241.cs.illinois.edu/slides/lockpicking_lab">
+
+    <style>
+     .reveal pre {
+         box-shadow: none;
+     }
+     .reveal pre.highlight {
+         margin: 0px 0px 0px 0px;
+         width: 100%;
+         height: 100%;
+         font-size: 20px;
+     }
+     #toggle-chalkboard {
+	       left: 60px !important;
+	       bottom: 32px !important;
+     }
+     #toggle-notes {
+	       left: 93px !important;
+	       bottom: 32px !important;
+     }
+    </style>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="reveal">
+        <div class="slides">
+<section>
+      <h1 class="title">Welcome to CS 241</h1>
+      <h2 class="author"></h2>
+</section><section><h1></h1>
+<section><h2 id="whats-lab-gonna-be-like">What’s Lab Gonna Be Like?</h2>
+
+</section><section><h2 id="rules">Rules</h2>
+
+<ul>
+  <li>Most labs will begin with a worksheet</li>
+  <li>15-20 minutes in, your TA may go over it with the class</li>
+  <li>You should work on your lab assignment for the rest of class time</li>
+  <li>Email the GA (cs241admin@illinois.edu) if you need an exemption</li>
+</ul>
+
+</section><section><h2 id="lab-attendance">Lab Attendance</h2>
+
+<ul>
+  <li>Ten Minute Rule: if you aren’t here in the first ten minutes of class, you don’t get credit</li>
+  <li>Part of your grade in this class relies on you attending labs. Near the end of every lab, we will ask you to swipe out. You may only leave early if you show us that you have finished the lab, or if the lab attendant calls the time.</li>
+</ul>
+
+</section><section><h2 id="different-lab-sections">Different Lab Sections</h2>
+
+<ul>
+  <li>Due to seating limitations, you are required to go to the lab section you signed up for.</li>
+</ul>
+
+</section><section><h2></h2>
+
+<p>You must email the TA in charge of your assigned lab and the TA for the lab to which you are going.</p>
+
+</section></section><section><h1></h1>
+
+<section><h2 id="virtual-machines">Virtual Machines</h2>
+
+</section><section><h2 id="what-is-it">What is it?</h2>
+
+<p>A virtual machine is simply a computer that is running on top of another computer emulation system. The computer emulation underneath can be an operating system like Ubuntu that has an application like VmWare workstation to emulate the VM.</p>
+
+</section><section><h2 id="bare-metal">Bare Metal</h2>
+
+<p>You can also have what is called a bare-metal VM where you install a minimum set of instructions needed to get the VM up and running. The second option has the added benefit that you can spawn multiple VMs on the same physical device with low operating system overhead.</p>
+
+</section><section><h2></h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh <span class="k">**</span>NETID<span class="k">**</span>@fa20-cs241-<span class="k">**</span>xxx<span class="k">**</span>.cs.illinois.edu
+</code></pre></div></div>
+<p>where <code class="language-plaintext highlighter-rouge">xxx</code> is the VM number assigned to you.</p>
+
+</section><section><h2 id="vm-use">VM Use</h2>
+
+<p>We will only help you with your assignments on your VM. All other platforms are unsupported. You have been warned.</p>
+
+</section><section><h2 id="note">Note</h2>
+
+<p>You are going to need to be on the campus network for this to work. If you want to make it work at home, make sure to log in to the campus VPN first before ssh’ing. See the <a href="http://cs241.cs.illinois.edu/tutorials/development">development guide</a> for details.</p>
+
+</section><section><h2 id="late-adds">Late Adds</h2>
+
+<p>If you added in the past 24 hours, you should be getting an email soon about accessing your VM. If you cannot find the assignments, they are available in the release folder:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://github-dev.cs.illinois.edu/cs241-sp21/_release/
+</code></pre></div></div>
+
+</section></section><section><h1></h1>
+
+<section><h2 id="utils">Utils</h2>
+
+</section><section><h2 id="what-is-ssh">What is ssh</h2>
+
+<p>SSH is short for secure shell (secure sh). SSH is a network protocol that leverages public key cryptography in order to connect to another computer. In the basic version, two key pairs are generated for communication. In the more advanced cases, the keys are only used for another key exchange.</p>
+
+</section><section><h2 id="what-is-sudo">What is sudo</h2>
+
+<p>All of you have probably heard of sudo before. It is short for super-user do. This lets you execute any command as root. You have that ability on your VM. Be careful. There is no way to faster crash your VM that throwing sudo around.</p>
+
+</section><section><h2 id="what-is-git">What is git</h2>
+
+<p><code class="language-plaintext highlighter-rouge">git</code> is a version control system. That means it keeps track of changes in code, allows you to group changes into a commit, and provides tools to manipulate commits.</p>
+
+</section></section><section><h1></h1>
+
+<section><h2 id="sample-questions">Sample Questions</h2>
+
+</section><section><h2 id="question-1">Question 1</h2>
+
+<pre><code class="language-C"><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kt">size_t</span> <span class="n">a_size</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">a</span><span class="o">++</span><span class="p">);</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"size: %zu, a: %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">a_size</span><span class="p">,</span> <span class="n">a</span><span class="p">);</span>
+</code></pre>
+
+</section><section><h2 id="question-2">Question 2</h2>
+
+<pre><code class="language-C"><span class="cp">#define swap(a, b) temp = a; \
+    a = b; \
+    b = temp;
+</span>
+<span class="kt">void</span> <span class="nf">selection_sort</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span> <span class="n">a</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">len</span><span class="p">){</span>
+    <span class="kt">size_t</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">len</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">temp</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">){</span>
+        <span class="kt">size_t</span> <span class="n">min_index</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">len</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">){</span>
+			<span class="k">if</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="n">min_index</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">!=</span> <span class="n">min_index</span><span class="p">)</span>
+			<span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="n">min_index</span><span class="p">]);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+
+</section><section><h2 id="question-3">Question 3</h2>
+
+<pre><code class="language-C"><span class="kt">short</span> <span class="nf">mystery_bits</span><span class="p">(</span><span class="kt">short</span> <span class="n">input</span><span class="p">){</span>
+	<span class="kt">short</span> <span class="n">max_set</span> <span class="o">=</span> <span class="o">~</span><span class="mi">0</span><span class="p">;</span>
+	<span class="kt">short</span> <span class="n">masked</span> <span class="o">=</span> <span class="n">input</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mh">0xFF00</span> <span class="o">^</span> <span class="n">max_set</span><span class="p">);</span>
+	<span class="kt">short</span> <span class="n">shifted</span> <span class="o">=</span> <span class="n">masked</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">;</span>
+	<span class="kt">short</span> <span class="n">ret</span> <span class="o">=</span> <span class="p">(</span><span class="n">shifted</span> <span class="o">|</span> <span class="mh">0xCC</span><span class="p">);</span>
+	<span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+
+</section><section><h2 id="question-4">Question 4</h2>
+
+<pre><code class="language-C"><span class="kt">void</span> <span class="nf">positive_under_ten</span><span class="p">(</span><span class="kt">int</span> <span class="n">input</span><span class="p">){</span>
+	<span class="k">if</span><span class="p">(</span><span class="mi">0</span> <span class="o">&lt;</span> <span class="n">input</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">){</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">"Input is in the range</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+	<span class="p">}</span><span class="k">else</span><span class="p">{</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">"Input is not in the range</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+
+</section><section><h2 id="question-5">Question 5</h2>
+
+<pre><code class="language-C"><span class="kt">int</span> <span class="nf">print_error</span><span class="p">(</span><span class="kt">int</span> <span class="n">err_num</span><span class="p">){</span>
+	<span class="k">switch</span><span class="p">(</span><span class="n">err_num</span><span class="p">){</span>
+	<span class="k">case</span> <span class="n">ENOENT</span><span class="p">:</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">"No such file or entry</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+	<span class="k">case</span> <span class="n">EINTR</span><span class="p">:</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">"Interrupted</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+	<span class="nl">default:</span>
+		<span class="k">break</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+
+</section></section><section><h1></h1>
+
+<section><h2 id="todays-lab-debugging">Today’s lab: Debugging</h2>
+
+</section><section><h2 id="valgrind">Valgrind!</h2>
+
+<ol>
+  <li>A suite providing several tools.</li>
+  <li>Memcheck is the most popular one.</li>
+  <li>Memcheck detects memory-leak.</li>
+</ol>
+
+</section><section><h2 id="usage">Usage</h2>
+<p>Given a program test arg1 arg2.
+<code class="language-plaintext highlighter-rouge">valgrind --leak-check=type command</code>
+<code class="language-plaintext highlighter-rouge">type = &lt;no|summary|yes|full&gt;</code>
+<code class="language-plaintext highlighter-rouge">valgrind --show-leak-kinds=all ...</code></p>
+
+</section><section><h2 id="leak-types">Leak Types</h2>
+
+<ol>
+  <li>
+<em>Memory block</em>: A block of allocated, not-freed memory</li>
+  <li>
+<em>Definitely lost</em>: No pointer to a memory block</li>
+  <li>
+<em>Still reachable</em>: Live pointer to a memory block (not freed)</li>
+  <li>
+<em>Indirectly lost</em>: Memory blocks pointing to a memory block is lost</li>
+  <li>
+<em>Possibly lost</em>: Have a (moved) pointer pointing to a memory block</li>
+</ol>
+
+</section></section><section><h1></h1>
+
+<section><h2 id="gdb">GDB</h2>
+
+</section><section><h2 id="a-lot-of-you-are-afraid--dont-be">A lot of you are afraid – don’t be!</h2>
+
+</section><section><h2 id="commands-intro">Commands intro</h2>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">layout src</code> gives you a text-based GUI</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">break &lt;file:line|function&gt; [if condition]</code>: You can make powerful breakpoints by giving a line, but only under certain circumstances.</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">watch (type *)0xADDRESS</code>: Watches an address for a read or write and tells you when it has changed – useful for when you don’t know where the bug is.</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">backtrace</code>, <code class="language-plaintext highlighter-rouge">bt</code> to see what functions you are in</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">up</code>, <code class="language-plaintext highlighter-rouge">down</code> goes up and down a stack frame</li>
+</ul>
+
+</section><section><h2 id="navigation">Navigation</h2>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">print</code> prints a variable (aliased <code class="language-plaintext highlighter-rouge">p</code>). You can use <code class="language-plaintext highlighter-rouge">p/x</code> to print in hex.</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">next</code> executes the line and goes to the next line, runs functions without stopping.</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">finish</code> finishes the function and breaks.</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">step</code> executes the line and goes to the next line. If there is a function, gdb steps into the function.</li>
+</ul>
+
+</section><section><h2 id="demo-maybe">Demo! (maybe)</h2>
+</section></section>
+</div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.7.0/lib/js/head.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.7.0/js/reveal.js"></script>
+    <script>
+     // Full list of configuration options available at:
+     // https://github.com/hakimel/reveal.js#configuration
+     Reveal.initialize({
+         controls: true,
+         progress: true,
+         history: true,
+         center: true,
+         // Optional reveal.js plugins
+         dependencies: [
+             { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.7.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+             { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.7.0/plugin/zoom-js/zoom.js', async: true },
+             { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.7.0/plugin/notes/notes.js', async: true },
+             { src: '/js/reveal.js/menu/menu.js', async: true},
+             { src: '/js/reveal.js/chalkboard/chalkboard.js', async: true},
+         ]
+     });
+
+    </script>
+  </body>
+</html>

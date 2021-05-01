@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>
+        
+        Memory Mapped IO | CS 241: System Programming
+        
+    </title>
+
+    <meta name="author" content="" />
+
+    <!-- Description -->
+    
+    <meta name="description" content=""Webpage for CS 241: System Programming at the University of Illinois at Urbana-Champaign. All documentation and information about the course can be found here."
+">
+    
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.7.0/css/reveal.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.7.0/css/theme/black.css" id="theme"/>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="/css/code-style.css"/>
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '/reveal.js/css/print/pdf.css' : '/reveal.js/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <!-- <link rel="apple-touch-icon" href="/apple-touch-icon.png" /> -->
+
+    <link rel="canonical" href="http://cs241.cs.illinois.edu/slides/mad_mad_access_pattern">
+
+    <style>
+     .reveal pre {
+         box-shadow: none;
+     }
+     .reveal pre.highlight {
+         margin: 0px 0px 0px 0px;
+         width: 100%;
+         height: 100%;
+         font-size: 20px;
+     }
+     #toggle-chalkboard {
+	       left: 60px !important;
+	       bottom: 32px !important;
+     }
+     #toggle-notes {
+	       left: 93px !important;
+	       bottom: 32px !important;
+     }
+    </style>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="reveal">
+        <div class="slides">
+<section>
+      <h1 class="title">Memory Mapped IO</h1>
+      <h2 class="author"></h2>
+</section><section><h1></h1>
+<section><h2 id="preliminaries">Preliminaries</h2>
+
+</section><section><h2></h2>
+
+<p>Binary Trees!</p>
+
+<p><img src="https://2.bp.blogspot.com/-SKDmvFFeO4k/V_0pb7xvuSI/AAAAAAAABTo/UlEmSIX29Qg3eZBFcHaq3SETawISEYewwCLcB/s1600/deserialized-binary-tree.png" alt="Binary Tree"></p>
+
+</section><section><h2></h2>
+
+<p>This is how we store them in arrays!</p>
+
+<p><img src="http://d2vlcm61l7u1fs.cloudfront.net/media%2F858%2F858e0ee4-80a8-4837-8e97-c1925cdbb231%2FphppObXfG.png" alt="Serializing Them In Arrays"></p>
+
+</section><section><h2 id="our-old-friend-pointer-arithmetic">Our Old Friend: Pointer Arithmetic</h2>
+
+<pre><code class="language-C"><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+	<span class="kt">uint32_t</span> <span class="n">left_child</span><span class="p">;</span>
+	<span class="kt">uint32_t</span> <span class="n">right_child</span><span class="p">;</span>
+	<span class="kt">uint32_t</span> <span class="n">count</span><span class="p">;</span>
+	<span class="kt">float</span> <span class="n">price</span><span class="p">;</span>
+	<span class="kt">char</span> <span class="n">word</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="p">}</span> <span class="n">BinaryTreeNode</span><span class="p">;</span>
+</code></pre>
+
+</section><section><h2 id="what-is-word0">What is word[0]?</h2>
+
+</section></section><section><h1></h1>
+
+<section><h2 id="c-files">C-Files</h2>
+
+</section><section><h2 id="fseek-juggle">Fseek Juggle</h2>
+
+<p><img src="http://forum.falinux.com/_clibimages/073_fseek.png" alt="Fseek Map"></p>
+
+</section><section><h2 id="more-juggling">More Juggling</h2>
+
+<p><img src="http://image.slidesharecdn.com/14-fiileio-130524022237-phpapp01/95/14-fiile-io-31-638.jpg" alt="More File IO"></p>
+
+<p>Where is the end pointer?</p>
+
+</section><section><h2 id="what-to-do">What to do</h2>
+
+<p>Read in the <code class="language-plaintext highlighter-rouge">FILE*</code>, skip the first 4 bytes and then treat the next few bytes as the meta data for the binary tree node, then after that is the string. The string will be a valid c-string delimited by a null byte.</p>
+
+</section></section><section><h1></h1>
+
+<section><h2 id="mmap">MMAP</h2>
+
+</section><section><h2 id="lol-what">Lol what?</h2>
+
+<p>mmap is a really cool function call. it uses memory mapped IO to emulate writing to files. This means that the file is loaded lazily into memory page by page and any writes write back to the original file.</p>
+
+</section><section><h2 id="remember-this">Remember This?</h2>
+
+<p><img src="http://www.tldp.org/LDP/tlk/mm/vm.gif" alt="Virtual Memory Pics"></p>
+
+<p>Now, the pages can be tied to file pages.</p>
+
+</section><section><h2 id="address-space">Address Space</h2>
+
+<p><img src="https://www.safaribooksonline.com/library/view/linux-system-programming/0596009585/httpatomoreillycomsourceoreillyimages47949.png" height="80%" width="80%"></p>
+
+</section><section><h2 id="mmap-read-many">MMAP read-many</h2>
+
+<p><img src="http://www.linuxidc.com/upload/2011_08/110819060295692.gif" alt="MMAP Read a lot"></p>
+
+</section><section><h2 id="mmap-1">MMAP</h2>
+
+<p>Mmapping is lazy! Entire files may not be mmapped, you may just use parts of files and assign them to memory pages as they are needed because you don’t need a file until the first time you need it.</p>
+
+</section><section><h2></h2>
+
+<p>Just like the function name says, mmap creates a memory mapping in the kernel and the kernel/CPU is free to do whatever under the hood so long as when a process asks for a memory address it will get the correct bytes and when the write happens, the write eventually goes through to the actual disk.</p>
+
+</section><section><h2 id="how-do-i-use-it">How Do I Use It?</h2>
+
+<p>Read the man page!</p>
+</section></section>
+</div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.7.0/lib/js/head.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.7.0/js/reveal.js"></script>
+    <script>
+     // Full list of configuration options available at:
+     // https://github.com/hakimel/reveal.js#configuration
+     Reveal.initialize({
+         controls: true,
+         progress: true,
+         history: true,
+         center: true,
+         // Optional reveal.js plugins
+         dependencies: [
+             { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.7.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+             { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.7.0/plugin/zoom-js/zoom.js', async: true },
+             { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.7.0/plugin/notes/notes.js', async: true },
+             { src: '/js/reveal.js/menu/menu.js', async: true},
+             { src: '/js/reveal.js/chalkboard/chalkboard.js', async: true},
+         ]
+     });
+
+    </script>
+  </body>
+</html>

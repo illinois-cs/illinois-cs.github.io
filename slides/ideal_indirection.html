@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>
+        
+        Virtual Memory | CS 241: System Programming
+        
+    </title>
+
+    <meta name="author" content="" />
+
+    <!-- Description -->
+    
+    <meta name="description" content=""Webpage for CS 241: System Programming at the University of Illinois at Urbana-Champaign. All documentation and information about the course can be found here."
+">
+    
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.7.0/css/reveal.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.7.0/css/theme/black.css" id="theme"/>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="/css/code-style.css"/>
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '/reveal.js/css/print/pdf.css' : '/reveal.js/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <!-- <link rel="apple-touch-icon" href="/apple-touch-icon.png" /> -->
+
+    <link rel="canonical" href="http://cs241.cs.illinois.edu/slides/ideal_indirection">
+
+    <style>
+     .reveal pre {
+         box-shadow: none;
+     }
+     .reveal pre.highlight {
+         margin: 0px 0px 0px 0px;
+         width: 100%;
+         height: 100%;
+         font-size: 20px;
+     }
+     #toggle-chalkboard {
+	       left: 60px !important;
+	       bottom: 32px !important;
+     }
+     #toggle-notes {
+	       left: 93px !important;
+	       bottom: 32px !important;
+     }
+    </style>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="reveal">
+        <div class="slides">
+<section>
+      <h1 class="title">Virtual Memory</h1>
+      <h2 class="author"></h2>
+</section><section><h1></h1>
+<section><h2 id="virtual-memory-visualization">Virtual Memory Visualization</h2>
+
+</section><section><h2></h2>
+
+<p><img src="/images/assignment-docs/lab/slides/virtual/mmu_pic.png" alt="MMU"></p>
+
+</section><section><h2></h2>
+
+<p><img src="/images/assignment-docs/lab/slides/virtual/indirection.gif" alt="Indirection"></p>
+
+</section></section><section><h1></h1>
+
+<section><h2 id="how-many-pages-are-there-in-a-32bit-machine-assume-frame-size-of-4kb">How many pages are there in a 32bit machine (assume frame size of 4KB)?</h2>
+
+</section><section><h2></h2>
+
+<p>Answer: 2^32 address / 2^12 = 2^20 pages.</p>
+
+<p>Remember that 2^10 is 1024, so 2^20 is a bit more than one million.</p>
+
+<p>For a 64 bit machine, 2^64 / 2^12 = 2^52, which is roughly 10^15 pages.</p>
+
+</section><section><h2></h2>
+
+<h3 id="on-a-32-bit-machine-with-2kb-pages-and-4-byte-entries-how-big-would-a-single-layered-page-table-have-to-be-to-address-all-of-the-physical-memory-explain">On a 32 bit machine with 2KB pages and 4 Byte entries, how big would a single layered Page Table have to be to address all of the physical memory? Explain?</h3>
+
+</section></section><section><h1></h1>
+
+<section><h2 id="multi-leveled-page-table">Multi Leveled Page Table</h2>
+
+</section><section><h2></h2>
+
+<p><img src="/images/assignment-docs/lab/slides/virtual/division.gif" alt="Page Table Division"></p>
+
+</section></section><section><h1></h1>
+
+<section><h2 id="faults-in-our-page-tables">Faults in our Page Tables</h2>
+
+</section><section><h2 id="what-is-the-difference-between-a-page-fault-and-a-seg-fault">What is the difference between a page fault and a seg. fault?</h2>
+
+</section><section><h2 id="what-is-a-tlb-what-is-an-mmu">What is a TLB? What is an MMU?</h2>
+
+</section><section><h2></h2>
+
+<p><img src="/images/assignment-docs/lab/slides/virtual/mmu_pic.png" alt="MMU Pictures"></p>
+
+</section><section><h2></h2>
+
+<p><img src="/images/assignment-docs/lab/slides/virtual/tlb.gif" alt="TLB"></p>
+
+</section></section><section><h1></h1>
+
+<section><h2 id="be-careful-about-your-bitshifting">Be Careful About Your Bitshifting!</h2>
+
+</section><section><h2></h2>
+
+<p><img src="/images/assignment-docs/lab/slides/virtual/byte-extend.png" alt="Byte Extending"></p>
+</section></section>
+</div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.7.0/lib/js/head.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.7.0/js/reveal.js"></script>
+    <script>
+     // Full list of configuration options available at:
+     // https://github.com/hakimel/reveal.js#configuration
+     Reveal.initialize({
+         controls: true,
+         progress: true,
+         history: true,
+         center: true,
+         // Optional reveal.js plugins
+         dependencies: [
+             { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.7.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+             { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.7.0/plugin/zoom-js/zoom.js', async: true },
+             { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.7.0/plugin/notes/notes.js', async: true },
+             { src: '/js/reveal.js/menu/menu.js', async: true},
+             { src: '/js/reveal.js/chalkboard/chalkboard.js', async: true},
+         ]
+     });
+
+    </script>
+  </body>
+</html>

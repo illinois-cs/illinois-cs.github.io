@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>
+        
+        Dining Philosophers | CS 241: System Programming
+        
+    </title>
+
+    <meta name="author" content="" />
+
+    <!-- Description -->
+    
+    <meta name="description" content=""Webpage for CS 241: System Programming at the University of Illinois at Urbana-Champaign. All documentation and information about the course can be found here."
+">
+    
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.7.0/css/reveal.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.7.0/css/theme/black.css" id="theme"/>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="/css/code-style.css"/>
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '/reveal.js/css/print/pdf.css' : '/reveal.js/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <!-- <link rel="apple-touch-icon" href="/apple-touch-icon.png" /> -->
+
+    <link rel="canonical" href="http://cs241.cs.illinois.edu/slides/deadlock_demolition">
+
+    <style>
+     .reveal pre {
+         box-shadow: none;
+     }
+     .reveal pre.highlight {
+         margin: 0px 0px 0px 0px;
+         width: 100%;
+         height: 100%;
+         font-size: 20px;
+     }
+     #toggle-chalkboard {
+	       left: 60px !important;
+	       bottom: 32px !important;
+     }
+     #toggle-notes {
+	       left: 93px !important;
+	       bottom: 32px !important;
+     }
+    </style>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="reveal">
+        <div class="slides">
+<section>
+      <h1 class="title">Dining Philosophers</h1>
+      <h2 class="author"></h2>
+</section><section><h1></h1>
+<section><h2 id="deadlock">Deadlock</h2>
+
+</section><section><h2></h2>
+
+<p><img src="/images/assignment-docs/lab/slides/dining/traffic.gif" alt="Traffic Jam"></p>
+
+</section><section><h2 id="dining-philosophers">Dining philosophers</h2>
+
+<p>A good example of deadlock is the dining philosophers problem</p>
+
+<p><img src="/images/assignment-docs/lab/slides/dining/dining.gif" alt="Deadlock Dining"></p>
+
+</section><section><h2 id="whos-a-good-dining-philosopher">Who’s a good Dining Philosopher</h2>
+
+<p><img src="/images/assignment-docs/lab/slides/dining/dogdining.gif" alt="Dog Philosopher"></p>
+
+</section><section><h2 id="a-good-overview">A Good Overview</h2>
+
+<p><a href="http://adit.io/posts/2013-05-11-The-Dining-Philosophers-Problem-With-Ron-Swanson.html">Read a Ron Swanson Version Here</a></p>
+
+</section></section><section><h1></h1>
+
+<section><h2 id="what-is-deadlock">What is deadlock?</h2>
+
+<p>From wikipedia:</p>
+<blockquote>
+  <p>In an operating system, a deadlock occurs when a process or thread enters a waiting state because a requested system resource is held by another waiting process, which in turn is waiting for another resource held by another waiting process. If a process is unable to change its state indefinitely because the resources requested by it are being used by another waiting process, then the system is said to be in a deadlock.</p>
+</blockquote>
+
+</section></section><section><h1></h1>
+
+<section><h2 id="resource-allocation-graph">Resource allocation graph</h2>
+
+<p>We can model resource allocation by having resources and processes represented as vertices
+and use edges to show ownership of a resource. A cycle in the (undirected)
+resource allocation graph implies that we have deadlock.</p>
+
+</section><section><h2 id="example-rag">Example RAG</h2>
+
+<p><img src="/images/assignment-docs/lab/slides/dining/rag.gif" alt="Deadlock RAG"></p>
+
+</section></section><section><h1></h1>
+
+<section><h2 id="solutions-to-the-dining-philsophers-problem">Solutions to the dining philsophers problem</h2>
+
+</section></section><section><h1></h1>
+
+<section><h2 id="arbitrator">Arbitrator</h2>
+
+</section><section><h2></h2>
+
+<p>Have one authority (mutex in the case of c). Have each philosopher grab that authority and only when they have the authority can they pick up their forks and eat. They eat, put the arbitrator and the forks down and move on to the next philosopher (can be random or sequential).</p>
+
+</section><section><h2 id="downsides">Downsides</h2>
+
+<ul>
+  <li>Very slow</li>
+  <li>Only one thread running at a time essentially</li>
+  <li>This is python’s GIL in a nutshell</li>
+</ul>
+
+</section></section><section><h1></h1>
+
+<section><h2 id="leave-the-table-stallings">Leave the table (Stallings)</h2>
+
+</section><section><h2></h2>
+
+<p>Reduce the case of the dining philosophers to a case of n-chopsticks and p-philosophers. Reduce the number of philosophers currently allowed at the table to n-1. Have them eat. Cycle out the philosophers.</p>
+
+</section><section><h2 id="downsides-1">Downsides</h2>
+
+<ul>
+  <li>Very heavy on context switchings for process</li>
+  <li>Needs way of keeping the philosophers at bay (SIGSTOP for linux kernel)</li>
+  <li>Needs some cycling algorithm</li>
+</ul>
+
+</section></section><section><h1></h1>
+
+<section><h2 id="partial-ordering-dijkstra">Partial Ordering (Dijkstra)</h2>
+
+</section><section><h2></h2>
+
+<p>Order the chopsticks 1..n. For each philosopher have them pick up the lower number chopstick. Then, only if they can pick up the lower chopstick, pick up the higher chopstick. Why does this work?</p>
+
+</section><section><h2 id="downsides-2">Downsides</h2>
+
+<ul>
+  <li>Needs to be able to order the resources</li>
+  <li>Doesn’t livelock but often leads one thread working at a time for large applications (databases)</li>
+  <li>But good for dining philosophers!</li>
+</ul>
+
+</section></section><section><h1></h1>
+
+<section><h2 id="cleandirty-chandramisra">Clean/Dirty (Chandra/Misra)</h2>
+
+</section><section><h2></h2>
+
+<p>If you want reeealllllllly fast (Given a lot of philosophers).</p>
+
+</section></section><section><h1></h1>
+
+<section><h2 id="questions">Questions?</h2>
+
+</section></section>
+</div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.7.0/lib/js/head.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.7.0/js/reveal.js"></script>
+    <script>
+     // Full list of configuration options available at:
+     // https://github.com/hakimel/reveal.js#configuration
+     Reveal.initialize({
+         controls: true,
+         progress: true,
+         history: true,
+         center: true,
+         // Optional reveal.js plugins
+         dependencies: [
+             { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.7.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+             { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.7.0/plugin/zoom-js/zoom.js', async: true },
+             { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.7.0/plugin/notes/notes.js', async: true },
+             { src: '/js/reveal.js/menu/menu.js', async: true},
+             { src: '/js/reveal.js/chalkboard/chalkboard.js', async: true},
+         ]
+     });
+
+    </script>
+  </body>
+</html>
